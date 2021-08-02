@@ -160,6 +160,8 @@ class InverterEntity(Entity):
 
     def update_value(self, inverter_response):
         """Update the entity value from the response received from inverter"""
+        if not self.enabled:
+            return
         self._data = inverter_response
         if self._sensor in inverter_response:
             self._value = inverter_response[self._sensor]
@@ -263,6 +265,8 @@ class InverterSensor(Entity):
 
     def update_value(self, inverter_response):
         """Update the sensor value from the response received from inverter"""
+        if not self.enabled:
+            return
         if self._sensor_id in inverter_response:
             self._value = inverter_response[self._sensor_id]
         else:
